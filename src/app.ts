@@ -4,6 +4,14 @@ import { ValidationError } from "yup";
 
 const app = express();
 const fetch = require('node-fetch');
+const LRU = require('lru-cache');
+
+const cacheOptions = {
+  max: 555,
+  maxAge: 1000 * 60 * 10 //10 minutes
+};
+const cache = new LRU(cacheOptions);
+
 app.use(json());
 
 const apikey = "NZN11EYLZ0OL0C3E"
@@ -51,22 +59,27 @@ app.get("/api/v1/companies", async (req: Request, res: Response, next: NextFunct
     return;
   }
     try {
-        const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
-                    + req.query.companyName + "&apikey=" + apikey;//what the hell is going on?
-        console.log(url);
-        await fetch(url, { method: 'GET' } )
-          .then((res: any) => {return res.json();})
-          .then((json: any) => {
-            if (Object.keys(json.bestMatches).length === 0) {
-              res.status(404).json({ message: 'Company not found' });
-            }
-            const bestMatchSymbol = json.bestMatches[0]['1. symbol'];
-            getStockPriceByCompanySymbol(bestMatchSymbol)
-              .then((price: number) => {
-                res.status(200).json(price);
-              })
-            //res.status(200).json(getStockPriceByCompanySymbol(bestMatchSymbol));
-          });
+      if (cache.get(req.query.companyName)) {
+        res.status(200).json(cache.get(req.query.companyName));
+      } else {
+          const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
+                      + req.query.companyName + "&apikey=" + apikey;
+          console.log(url);
+          await fetch(url, { method: 'GET' } )
+            .then((res: any) => {return res.json();})
+            .then((json: any) => {
+              if (Object.keys(json.bestMatches).length === 0) {
+                res.status(404).json({ message: 'Company not found' });
+              }
+              const bestMatchSymbol = json.bestMatches[0]['1. symbol'];
+              getStockPriceByCompanySymbol(bestMatchSymbol)
+                .then((price: number) => {
+                  cache.set(req.query.companyName, price);
+                  res.status(200).json(price);
+                })
+              //res.status(200).json(getStockPriceByCompanySymbol(bestMatchSymbol));
+            });
+          }
     } catch (err) {
         next(err);
     }
