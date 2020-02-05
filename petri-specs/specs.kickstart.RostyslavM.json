@@ -1,0 +1,13 @@
+{
+  "specs.kickstart.RostyslavM": {
+    "owner": "rostyslavm@wix.com",
+    "onlyForLoggedInUsers": true,
+    "scopes": [
+      "kickstart"
+    ],
+    "controlGroup": "false",
+    "variants": [
+      "true"
+    ]
+  }
+}
