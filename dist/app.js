@@ -18,7 +18,7 @@ const fetch = require('node-fetch');
 const LRU = require('lru-cache');
 const cacheOptions = {
     max: 555,
-    maxAge: 10 * 60 * 10
+    maxAge: 1000 * 60 * 10 //10 minutes
 };
 const cache = new LRU(cacheOptions);
 app.use(express_1.json());

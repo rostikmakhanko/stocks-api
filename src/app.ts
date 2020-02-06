@@ -1,6 +1,7 @@
 import express, { Request, Response, json, NextFunction } from 'express';
 import CompanyService from './services/companies';
 import { ValidationError } from "yup";
+import {apiCompanies} from './api/companies';
 
 const app = express();
 const fetch = require('node-fetch');
@@ -10,13 +11,13 @@ const cacheOptions = {
   max: 555,
   maxAge: 1000 * 60 * 10 //10 minutes
 };
-const cache = new LRU(cacheOptions);
+export const cache = new LRU(cacheOptions);
 
 app.use(json());
 
-const apikey = "NZN11EYLZ0OL0C3E"
+export const apikey = "NZN11EYLZ0OL0C3E"
 
-const companies = new CompanyService();
+export const companies = new CompanyService();
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Welcome to stock-api!");
@@ -31,59 +32,11 @@ app.post("/api/v1/companies", async (req: Request, res: Response, next: NextFunc
     }
 });
 
-function getStockPriceByCompanySymbol(symbol: string){
-  try {
-    const url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey=" + apikey;
-    //console.log(1);
-    return fetch(url, { method: 'GET' })
-      .then((res: any) => {return res.json();})
-      .then((json: any) => {
-        //console.log(11);
-        const price: number = json["Time Series (5min)"][Object.keys(json["Time Series (5min)"])[0]]["4. close"];
-        console.log(price);
-        return price;
-      })
-  } catch (err) {
-    throw ("Cannot get stock price by company symbol");
-  }
-}
+// app.get("/api/v1/companies", (req: Request, res: Response, next: NextFunction) => {
+//   res.status(200).json({a: 1, b: 2})
+// });
 
-app.get("/api/v1/companies", async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.query.companyName) {
-    try {
-        const result = await companies.getList();
-        res.status(200).json(result);
-    } catch (err) {
-        next(err);
-    }
-    return;
-  }
-    try {
-      if (cache.get(req.query.companyName)) {
-        res.status(200).json(cache.get(req.query.companyName));
-      } else {
-          const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
-                      + req.query.companyName + "&apikey=" + apikey;
-          console.log(url);
-          await fetch(url, { method: 'GET' } )
-            .then((res: any) => {return res.json();})
-            .then((json: any) => {
-              if (Object.keys(json.bestMatches).length === 0) {
-                res.status(404).json({ message: 'Company not found' });
-              }
-              const bestMatchSymbol = json.bestMatches[0]['1. symbol'];
-              getStockPriceByCompanySymbol(bestMatchSymbol)
-                .then((price: number) => {
-                  cache.set(req.query.companyName, price);
-                  res.status(200).json(price);
-                })
-              //res.status(200).json(getStockPriceByCompanySymbol(bestMatchSymbol));
-            });
-          }
-    } catch (err) {
-        next(err);
-    }
-});
+app.get("/api/v1/companies", apiCompanies);
 
 app.get("/api/v1/companies/:companyId", async (req: Request, res: Response, next: NextFunction) => {
     try {
