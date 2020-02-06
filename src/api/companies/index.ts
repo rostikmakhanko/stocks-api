@@ -11,8 +11,11 @@ function getStockPriceByCompanySymbol(symbol: string){
     return fetch(url, { method: 'GET' })
       .then((res: any) => {return res.json();})
       .then((json: any) => {
-        //console.log(11);
-        const price: number = json["Time Series (5min)"][Object.keys(json["Time Series (5min)"])[0]]["4. close"];
+        console.log(json);
+        if (json.Note) {
+          return null;
+        }
+        const price: any = json["Time Series (5min)"][Object.keys(json["Time Series (5min)"])[0]]["4. close"];
         console.log(price);
         return price;
       })
@@ -22,40 +25,40 @@ function getStockPriceByCompanySymbol(symbol: string){
 }
 
 export const apiCompanies = async (req: Request, res: Response, next: NextFunction) => {
-  if (!req.query.companyName) {
-    try {
-      const result = await companies.getList();
-      res.status(200).json(result);
-    } catch (err) {
-      next(err);
-    }
-    return;
-  }
-
   try {
-    if (cache.get(req.query.companyName)) {
-      res.status(200).json(cache.get(req.query.companyName));
-    } else {
-      const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
-                  + req.query.companyName + "&apikey=" + apikey;
-      console.log(url);
-      await fetch(url, { method: 'GET' } )
-        .then((res: any) => {return res.json();})
-        .then((json: any) => {
-          if (Object.keys(json.bestMatches).length === 0) {
-            res.status(404).json({ message: 'Company not found' });
-          }
-
-          const bestMatchSymbol = json.bestMatches[0]['1. symbol'];
-          getStockPriceByCompanySymbol(bestMatchSymbol)
-            .then((price: number) => {
-              cache.set(req.query.companyName, price);
-              res.status(200).json(price);
-            });
-
-        //res.status(200).json(getStockPriceByCompanySymbol(bestMatchSymbol));
-      });
+    if (!req.query.companyName) {
+      const result = await companies.getList();
+      return res.status(200).json(result);
     }
+
+    if (cache.get(req.query.companyName)) {
+      return res.status(200).json(cache.get(req.query.companyName));
+    }
+
+    const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords="
+                + req.query.companyName + "&apikey=" + apikey;
+    console.log(url);
+
+    await fetch(url, { method: 'GET' } )
+      .then((res: any) => {return res.json();})
+      .then((json: any) => {
+        if (Object.keys(json.bestMatches).length === 0) {
+          res.status(404).json({ message: 'Company not found' });
+        }
+
+        const bestMatchSymbol = json.bestMatches[0]['1. symbol'];
+        getStockPriceByCompanySymbol(bestMatchSymbol)
+          .then((price: number) => {
+            if (price === null) {
+              console.log("Queries limit exceeded");
+              res.status(403).json({message: "Queries limit exceeded"});
+            }
+            cache.set(req.query.companyName, price);
+            res.status(200).json(price);
+          });
+
+      //res.status(200).json(getStockPriceByCompanySymbol(bestMatchSymbol));
+    });
   } catch (err) {
     next(err);
   }
