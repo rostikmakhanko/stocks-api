@@ -6,7 +6,8 @@ const fetch = require('node-fetch');
 
 function getStockPriceByCompanySymbol(symbol: string){
   try {
-    const url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=5min&apikey=" + apikey;
+    // limit=10
+    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=" + apikey;
     //console.log(1);
     return fetch(url, { method: 'GET' })
       .then((res: any) => {return res.json();})
@@ -15,7 +16,7 @@ function getStockPriceByCompanySymbol(symbol: string){
         if (json.Note) {
           return null;
         }
-        const price: any = json["Time Series (5min)"][Object.keys(json["Time Series (5min)"])[0]]["4. close"];
+        const price: any = json["Global Quote"]["05. price"];
         console.log(price);
         return price;
       })
