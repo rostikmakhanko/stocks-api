@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+            rel="stylesheet"
+            href="//static.parastorage.com/services/third-party/fonts/Helvetica/fontFace.css"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="logo-and-options">
+        <h1 class="logo">STOKR</h1>
+        <ul class="options">
+            <li>
+                <button aria-label="Search" class="navigation-button">
+                    <img src="search.svg">
+                </button>
+            </li>
+            <li>
+                <button aria-label="Refresh" class="navigation-button">
+                    <img src="refresh.svg">
+                </button>
+            </li>
+            <li>
+                <button aria-label="Filter" class="navigation-button">
+                    <img src="filter.svg">
+                </button>
+            </li>
+            <li>
+                <button aria-label="Settings" class="navigation-button">
+                    <img src="settings.svg">
+                </button>
+            </li>
+        </ul>
+    </div>
+    <form action="./apply.html">
+        <div class="inputs">
+            <label class="main-text">
+                By Name<input type="text" class="first-name">
+            </label>
+            <label class="main-text">
+                By Gain<input type="text" class="second-name">
+            </label>
+            <label class="main-text">
+                By Range: From<input type="text" class="by-range-from">
+            </label>
+            <label class="main-text">
+                By Range: To<input type="text" class="by-range-to">
+            </label>
+        </div>
+        <button onclick="./apply.html" class="apply">Apply</button>
+    </form>
+    <ul class="companies-list">
+        <li>
+            <div class="company-item">
+                <span class="company-name">AAPL (Apple.com Company)</span>
+                <div class="stock-price-and-gain">
+                    <span class="stock-price">100</span>
+                    <button onclick="" class="gain">-2.62%</button>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="company-item">
+                <span class="company-name">AAPL (Apple.com Company)</span>
+                <div class="stock-price-and-gain">
+                    <span class="stock-price">100</span>
+                    <button onclick="" class="gain">-2.62%</button>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="company-item">
+                <span class="company-name">AAPL (Apple.com Company)</span>
+                <div class="stock-price-and-gain">
+                    <span class="stock-price">100</span>
+                    <button onclick="" class="gain">-2.62%</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div id="otherCompanies"></div>
+    <script src="script.js"></script>
+</body>
+</html>

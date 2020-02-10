@@ -1,0 +1,121 @@
+html {
+    --main-green-color: #41bf15;
+    --main-red-color: #ff4f46;
+    --main-text-color: #59737c;
+    --white-color: #ffffff;
+    --icons-color: #ababab;
+
+    --bold-font: "HelveticaNeueW01-75Bold", sans-serif;
+    --main-font: "HelveticaNeueW01-55Roma", sans-serif;
+    --logo-font: "HelveticaNeueW02-95Blac", sans-serif;
+    --avenir-font: "HelveticaNeueW01-55Roma", sans-serif;
+}
+
+.logo-and-options {
+    display: flex;
+}
+
+.logo {
+    color: var(--main-green-color);
+    font-family: var(--logo-font);
+    font-size: 39px;
+    flex-grow: 1;
+}
+
+.main-text {
+    color: var(--main-text-color);
+    font-family: var(--main-font);
+    font-size: 26px;
+}
+
+.apply {
+    color: var(--white-color);
+    background-color: var(--main-green-color);
+    font-family: var(--bold-font);
+    font-size: 30px;
+}
+
+.company-name {
+    color: var(--main-text-color);
+    font-family: var(--main-font);
+    font-size: 33px;
+    flex-grow: 1;
+}
+
+.stock-price-and-gain {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.stock-price {
+    color: var(--main-text-color);
+    font-family: var(--bold-font);
+    font-size: 30px;
+    margin: 10px;
+}
+
+.gain {
+    color: var(--white-color);
+    font-family: var(--main-font);
+    font-size: 34px;
+    background-color: var(--main-red-color);
+}
+
+.apply:hover {
+    opacity: 0.8;
+}
+
+.apply:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px var(--main-green-color);
+}
+
+.gain:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px var(--main-red-color);
+}
+
+.navigation-button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+
+    background: transparent;
+
+    /* inherit font & color from ancestor */
+    color: inherit;
+    font: inherit;
+
+    /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+    line-height: normal;
+
+    /* Corrects font smoothing for webkit */
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+
+    /* Corrects inability to style clickable `input` types in iOS */
+    -webkit-appearance: none;
+}
+
+.options li {
+    display: inline-block !important;
+    margin-right: 10px;
+}
+
+.company-item {
+    display: flex;
+}
+
+.input {
+    width: 200px;
+}
+
+.inputs {
+    display: flex;
+}
+
+.first-name {
+
+}

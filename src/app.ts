@@ -6,7 +6,7 @@ import {apiCompanies} from './api/companies';
 const app = express();
 const fetch = require('node-fetch');
 const LRU = require('lru-cache');
-
+const path = require('path');
 const cacheOptions = {
   max: 555,
   maxAge: 1000 * 60 * 10 //10 minutes
@@ -19,9 +19,7 @@ export const apikey = "NZN11EYLZ0OL0C3E"
 
 export const companies = new CompanyService();
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to stock-api!");
-});
+app.use(express.static(path.join(__dirname,"../src/static")));
 
 app.post("/api/v1/companies", async (req: Request, res: Response, next: NextFunction) => {
     try {
