@@ -4,6 +4,7 @@ html {
     --main-text-color: #59737c;
     --white-color: #ffffff;
     --icons-color: #ababab;
+    --borders-color: #e5e5e5;
 
     --bold-font: "HelveticaNeueW01-75Bold", sans-serif;
     --main-font: "HelveticaNeueW01-55Roma", sans-serif;
@@ -13,6 +14,7 @@ html {
 
 .logo-and-options {
     display: flex;
+    border-bottom: solid 1px var(--borders-color);
 }
 
 .logo {
@@ -45,13 +47,14 @@ html {
 .stock-price-and-gain {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .stock-price {
     color: var(--main-text-color);
     font-family: var(--bold-font);
     font-size: 30px;
-    margin: 10px;
+    margin-right: 30px;
 }
 
 .gain {
@@ -59,6 +62,7 @@ html {
     font-family: var(--main-font);
     font-size: 34px;
     background-color: var(--main-red-color);
+    border-radius: 10px;
 }
 
 .apply:hover {
@@ -106,6 +110,12 @@ html {
 
 .company-item {
     display: flex;
+    align-items: center;
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
+    /*border-color: var(--borders-color);*/
+    margin: 2px;
+    border-bottom: solid 1px var(--borders-color);
 }
 
 input {
@@ -115,6 +125,8 @@ input {
 
 .inputs {
     display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
 }
 
 .by-name, .by-gain, .by-range-from, .by-range-to {
@@ -134,6 +146,7 @@ input {
 
 .input-description {
     flex-grow: 1;
+    margin-right: 20px;
 }
 
 .apply {
@@ -144,9 +157,22 @@ input {
 
 .search-form {
     display: flex;
+    border-bottom: solid 1px var(--borders-color);
+    padding: 5px;
+    /*justify-content: space-between;*/
 }
 
 .search-input {
     height: 55px;
     width: 361px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--borders-color);
+    padding: 1px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0px;
 }
