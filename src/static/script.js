@@ -63,24 +63,24 @@ function drawCompanies(json) {
   newDiv.innerHTML = html;
   document.getElementById("otherCompanies").appendChild(newDiv);
 
-  let status = new Map()
-  for (let i = 0; i < 3; i++) {
-      status.set(i, 0);
-  }
   console.log("Hello1");
   let otherCompanies = document.getElementById("otherCompanies");
   let gainButtons = otherCompanies.querySelectorAll(".gain");
+    let status = [];
+    for (let i = 0; i < gainButtons.length; i++) {
+        status.push(0);
+    }
   for (let i = 0; i < gainButtons.length; i++) {
       gainButtons[i].index = i;
       //console.log("Hello");
       gainButtons[i].addEventListener("click", function (e) {
           //alert(e.target.innerHTML);
           const position = e.target.index;
-          if (status.get(position) === 0) {
-              status.set(position, 1);
+          if (status[position] === 0) {
+              status[position] = 1;
               e.target.innerHTML = json[i].change;
           } else {
-              status.set(position, 0);
+              status[position] = 0;
               e.target.innerHTML = json[i].change_percent;
           }
           //e.target.innerHTML = 5;

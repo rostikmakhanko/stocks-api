@@ -12,7 +12,7 @@ function getStockDataByCompanySymbol(symbol: string){
     console.log(1);
     return fetch(url, { method: 'GET' })
       .then((res: any) => {return res.json();})
-      .then((json: any) => {
+      .then((json: any):any => {
         console.log(json);
         if (json.Note) {
           return null;

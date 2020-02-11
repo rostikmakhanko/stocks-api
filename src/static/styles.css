@@ -22,7 +22,7 @@ html {
     flex-grow: 1;
 }
 
-.main-text {
+.main-text, .input-description {
     color: var(--main-text-color);
     font-family: var(--main-font);
     font-size: 26px;
@@ -108,14 +108,45 @@ html {
     display: flex;
 }
 
-.input {
+input {
     width: 200px;
+    /*flex-grow: 1;*/
 }
 
 .inputs {
     display: flex;
 }
 
-.first-name {
+.by-name, .by-gain, .by-range-from, .by-range-to {
+    display: flex;
+    align-items: center;
+}
 
+.search-form {
+    display: flex;
+}
+
+.input-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.input-description {
+    flex-grow: 1;
+}
+
+.apply {
+    border-radius: 50%;
+    height: 111px;
+    width: 120px;
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-input {
+    height: 55px;
+    width: 361px;
 }

@@ -35,20 +35,24 @@
             </li>
         </ul>
     </div>
-    <form action="./apply.html">
+    <form action="./apply.html" class="search-form">
         <div class="inputs">
-            <label class="main-text">
-                By Name<input type="text" class="first-name">
-            </label>
-            <label class="main-text">
-                By Gain<input type="text" class="second-name">
-            </label>
-            <label class="main-text">
-                By Range: From<input type="text" class="by-range-from">
-            </label>
-            <label class="main-text">
-                By Range: To<input type="text" class="by-range-to">
-            </label>
+            <div class="input-column">
+                <div class="by-name">
+                    <span class="input-description">By Name</span><input type="text" class="search-input">
+                </div>
+                <div class="by-gain">
+                    <span class="input-description">By Gain</span><input type="text" class="search-input">
+                </div>
+            </div>
+            <div class="input-column">
+                <div class="by-range-from">
+                    <span class="input-description">By Range: From</span><input type="text" class="search-input">
+                </div>
+                <div class="by-range-to">
+                    <span class="input-description">By Range: To</span><input type="text" class="search-input">
+                </div>
+            </div>
         </div>
         <button onclick="./apply.html" class="apply">Apply</button>
     </form>
