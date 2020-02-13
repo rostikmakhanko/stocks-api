@@ -19,6 +19,12 @@ export const apikey = "NZN11EYLZ0OL0C3E"
 
 export const companies = new CompanyService();
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use(express.static(path.join(__dirname,"../src/static")));
 
 app.post("/api/v1/companies", async (req: Request, res: Response, next: NextFunction) => {
@@ -69,5 +75,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
     res.json({ message: err.message });
 });
+
+
 
 export default app;
