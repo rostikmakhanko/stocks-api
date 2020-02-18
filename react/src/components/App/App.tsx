@@ -39,19 +39,21 @@ class App extends React.Component<AppProps, State> {
   };
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    // this.setState((prevState) => ({
-    //     ...prevState,
-    //   name: e.currentTarget.value,
-    // }));
-
     this.setState({
       name: e.currentTarget.value,
     });
   };
 
-  handleSubmitClick = (e: any) => {
+  handleSubmitClick = async (e: any) => {
     e.preventDefault();
+    const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${this.state.name}`);
+    const data = await res.json();
+
+    this.setState({
+      stocks: data,
+    });
     console.log('----', this.state.name);
+    this.render();
   };
 
   render() {
