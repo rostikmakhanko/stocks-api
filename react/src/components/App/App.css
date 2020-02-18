@@ -65,6 +65,7 @@ html {
   font-size: 34px;
   background-color: var(--main-red-color);
   border-radius: 10px;
+  width: 200px;
 }
 
 .apply:hover {

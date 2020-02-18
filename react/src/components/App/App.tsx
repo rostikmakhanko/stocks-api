@@ -3,6 +3,11 @@ import './App.css';
 import './search.svg';
 import {Stocks} from '../stocks';
 import { StockItem } from '../../mocks';
+import { ReactComponent as FilterSvg } from "../../assets/filter.svg";
+import { ReactComponent as LogoSvg } from "../../assets/logo.svg";
+import { ReactComponent as RefreshSvg } from "../../assets/refresh.svg";
+import { ReactComponent as SearchSvg } from "../../assets/search.svg";
+import { ReactComponent as SettingsSvg } from "../../assets/settings.svg";
 // import searchSvg from 'react-svg-loader!./search.svg'
 
 interface AppProps {
@@ -24,14 +29,15 @@ class App extends React.Component<AppProps, State> {
   };
 
   async componentDidMount() {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/companies?companyName=WIX,twitter")
+    const res = await fetch("http://127.0.0.1:3000/api/v1/companies?companyName=WIX,twitter,google")
     const data = await res.json();
     console.log(data);
 
     this.setState({
       stocks: data,
+      name: "",
     })
-  }
+  };
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     // this.setState((prevState) => ({
@@ -57,22 +63,22 @@ class App extends React.Component<AppProps, State> {
             <ul className="options">
               <li>
                 <button aria-label="Search" className="navigation-button">
-                  <img src="searchSvg"/>
+                  <SearchSvg />
                 </button>
               </li>
               <li>
                 <button aria-label="Refresh" className="navigation-button">
-                  <img src="refresh.svg"/>
+                  <RefreshSvg />
                 </button>
               </li>
               <li>
                 <button aria-label="Filter" className="navigation-button">
-                  <img src="filter.svg"/>
+                  <FilterSvg />
                 </button>
               </li>
               <li>
                 <button aria-label="Settings" className="navigation-button">
-                  <img src="settings.svg"/>
+                  <SettingsSvg />
                 </button>
               </li>
             </ul>
