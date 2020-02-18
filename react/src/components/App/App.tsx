@@ -28,7 +28,7 @@ class App extends React.Component<AppProps, State> {
   };
 
   async componentDidMount() {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/companies?companyName=WIX,twitter,google")
+    const res = await fetch("http://127.0.0.1:3000/api/v1/companies?companyName=WIX,twitter")
     const data = await res.json();
     console.log(data);
 
@@ -53,7 +53,7 @@ class App extends React.Component<AppProps, State> {
       stocks: data,
     });
     console.log('----', this.state.name);
-    this.render();
+    //this.render();
   };
 
   render() {
@@ -97,10 +97,10 @@ class App extends React.Component<AppProps, State> {
               </div>
               <div className="input-column">
                 <div className="by-range-from">
-                  <span className="input-description">By Range: From</span><input type="text" className="search-input"/>
+                  <span className="input-description">By Range: From</span><input type="number" min="0" className="search-input"/>
                 </div>
                 <div className="by-range-to">
-                  <span className="input-description">By Range: To</span><input type="text" className="search-input"/>
+                  <span className="input-description">By Range: To</span><input type="number" min="0" className="search-input"/>
                 </div>
               </div>
             </div>
