@@ -60,6 +60,28 @@ class App extends React.Component<AppProps, State> {
             </ul>
           </div>
 
+          <form action="./apply.html" className="search-form">
+            <div className="inputs">
+              <div className="input-column">
+                <div className="by-name">
+                  <span className="input-description">By Name</span><input type="text" className="search-input"/>
+                </div>
+                <div className="by-gain">
+                  <span className="input-description">By Gain</span><input type="text" className="search-input"/>
+                </div>
+              </div>
+              <div className="input-column">
+                <div className="by-range-from">
+                  <span className="input-description">By Range: From</span><input type="text" className="search-input"/>
+                </div>
+                <div className="by-range-to">
+                  <span className="input-description">By Range: To</span><input type="text" className="search-input"/>
+                </div>
+              </div>
+            </div>
+            <button onClick={() => {}} className="apply">Apply</button>
+          </form>
+
           <Stocks items={this.state.stocks} />
         </div>
     );
