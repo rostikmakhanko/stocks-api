@@ -4,7 +4,6 @@ import './search.svg';
 import {Stocks} from '../stocks';
 import { StockItem } from '../../mocks';
 import { ReactComponent as FilterSvg } from "../../assets/filter.svg";
-import { ReactComponent as LogoSvg } from "../../assets/logo.svg";
 import { ReactComponent as RefreshSvg } from "../../assets/refresh.svg";
 import { ReactComponent as SearchSvg } from "../../assets/search.svg";
 import { ReactComponent as SettingsSvg } from "../../assets/settings.svg";

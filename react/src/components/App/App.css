@@ -16,7 +16,7 @@ html {
   display: flex;
   border-bottom: solid 1px var(--borders-color);
   align-items: center;
-  padding: 20px;
+  padding: 5px 20px;
 }
 
 .logo {
@@ -117,7 +117,7 @@ html {
   /*border-style: solid;*/
   /*border-width: 1px;*/
   /*border-color: var(--borders-color);*/
-  padding: 5px;
+  padding: 5px 20px;
   border-bottom: solid 1px var(--borders-color);
 }
 
