@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {MouseEventHandler, useState} from 'react';
 import './App.css';
 import './search.svg';
 import {Stocks} from '../stocks';
@@ -11,13 +11,15 @@ interface AppProps {
 
 interface State {
   stocks: StockItem[],
+  name: string,
 }
 
 class App extends React.Component<AppProps, State> {
   // const [stocks] = useState(props.initialState)
 
   state = {
-    stocks: []
+    stocks: [],
+    name: "",
     // stocks: this.props.initialState
   };
 
@@ -30,6 +32,22 @@ class App extends React.Component<AppProps, State> {
       stocks: data,
     })
   }
+
+  handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    // this.setState((prevState) => ({
+    //     ...prevState,
+    //   name: e.currentTarget.value,
+    // }));
+
+    this.setState({
+      name: e.currentTarget.value,
+    });
+  };
+
+  handleSubmitClick = (e: any) => {
+    e.preventDefault();
+    console.log('----', this.state.name);
+  };
 
   render() {
     return (
@@ -64,7 +82,7 @@ class App extends React.Component<AppProps, State> {
             <div className="inputs">
               <div className="input-column">
                 <div className="by-name">
-                  <span className="input-description">By Name</span><input type="text" className="search-input"/>
+                  <span className="input-description">By Name</span><input type="text" className="search-input" onChange={this.handleNameChange}/>
                 </div>
                 <div className="by-gain">
                   <span className="input-description">By Gain</span><input type="text" className="search-input"/>
@@ -79,7 +97,7 @@ class App extends React.Component<AppProps, State> {
                 </div>
               </div>
             </div>
-            <button onClick={() => {}} className="apply">Apply</button>
+            <button onClick={this.handleSubmitClick} className="apply">Apply</button>
           </form>
 
           <Stocks items={this.state.stocks} />
