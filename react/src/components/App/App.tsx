@@ -7,7 +7,6 @@ import { ReactComponent as FilterSvg } from "../../assets/filter.svg";
 import { ReactComponent as RefreshSvg } from "../../assets/refresh.svg";
 import { ReactComponent as SearchSvg } from "../../assets/search.svg";
 import { ReactComponent as SettingsSvg } from "../../assets/settings.svg";
-// import searchSvg from 'react-svg-loader!./search.svg'
 
 interface AppProps {
   initialState: Array<StockItem>,
@@ -63,16 +62,16 @@ class App extends React.Component<AppProps, State> {
     console.log('----', this.state.name);
   };
 
-  getListOfCompaniesNames() {
-    let listOfCompaniesNames: Array<string> = this.state.stocks.map(stock => Object(stock).symbol);
-    return listOfCompaniesNames;
+  getListOfCompaniesSymbols() {
+    let listOfCompaniesSymbols: Array<string> = this.state.stocks.map(stock => Object(stock).symbol);
+    return listOfCompaniesSymbols;
   }
 
   handleRefreshClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    let listOfCompaniesNames: Array<string> = await this.getListOfCompaniesNames();
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${listOfCompaniesNames.join(',')}`);
+    let listOfCompaniesSymbols: Array<string> = await this.getListOfCompaniesSymbols();
+    const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${listOfCompaniesSymbols.join(',')}`);
     const data = await res.json();
 
     this.setState({
