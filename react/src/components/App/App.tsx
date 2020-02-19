@@ -36,7 +36,7 @@ class App extends React.Component<AppProps, State> {
       name: "",
       displaySearchForm: false,
     })
-  };
+  }
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     this.setState({
@@ -44,13 +44,14 @@ class App extends React.Component<AppProps, State> {
     });
   };
 
-  handleFilterClick = (e: any) => {
+  handleFilterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     this.setState({
       displaySearchForm: !this.state.displaySearchForm,
-    })
-  }
+    });
+  };
 
-  handleSubmitClick = async (e: any) => {
+  handleSubmitClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${this.state.name}`);
     const data = await res.json();
@@ -60,6 +61,23 @@ class App extends React.Component<AppProps, State> {
     });
 
     console.log('----', this.state.name);
+  };
+
+  getListOfCompaniesNames() {
+    let listOfCompaniesNames: Array<string> = this.state.stocks.map(stock => Object(stock).symbol);
+    return listOfCompaniesNames;
+  }
+
+  handleRefreshClick = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    let listOfCompaniesNames: Array<string> = await this.getListOfCompaniesNames();
+    const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${listOfCompaniesNames.join(',')}`);
+    const data = await res.json();
+
+    this.setState({
+      stocks: data,
+    });
   };
 
   render() {
@@ -74,7 +92,7 @@ class App extends React.Component<AppProps, State> {
                 </button>
               </li>
               <li>
-                <button aria-label="Refresh" className="navigation-button">
+                <button aria-label="Refresh" onClick={this.handleRefreshClick} className="navigation-button">
                   <RefreshSvg />
                 </button>
               </li>
@@ -90,6 +108,7 @@ class App extends React.Component<AppProps, State> {
               </li>
             </ul>
           </div>
+
           {
             (this.state.displaySearchForm ?
             <form action="./apply.html" className="search-form">
@@ -117,6 +136,7 @@ class App extends React.Component<AppProps, State> {
               <button onClick={this.handleSubmitClick} className="apply">Apply</button>
             </form> : <div></div>)
           }
+
           <Stocks items={this.state.stocks} />
         </div>
     );
