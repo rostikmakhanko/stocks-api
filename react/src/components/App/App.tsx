@@ -120,11 +120,11 @@ class App extends React.Component<AppProps, State> {
             <div>
               <div className="search-by-name-header">
                 <input className="search-by-name-input"/>
-                <button className="search-by-name-button" onClick={this.handleSearchClick}>Cancel</button>
+                <button className="search-by-name-cancel-button" onClick={this.handleSearchClick}>Cancel</button>
               </div>
               <div className="search-by-name-image-and-text">
                 <BigSearchSvg />
-                <p>Search</p>
+                <p className="search-by-name-text">Search</p>
               </div>
             </div>
           :

@@ -82,7 +82,8 @@ html {
   box-shadow: 0 0 0 1px var(--main-red-color);
 }
 
-.navigation-button {
+.navigation-button, .search-by-name-cancel-button {
+  cursor: pointer;
   border: none;
   margin: 0;
   padding: 0;
@@ -203,11 +204,16 @@ ul {
   flex-grow: 1;
   border-radius: 5px;
   height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.search-by-name-button {
+.search-by-name-cancel-button {
   font-size: 20px;
   margin-left: 10px;
+  margin-right: 10px;
+  font-family: var(--main-font);
+  color: var(--main-green-color);
 }
 
 .search-by-name-image-and-text {
@@ -220,4 +226,10 @@ ul {
 
 .search-by-name-image {
 
+}
+
+.search-by-name-text {
+  font-family: var(--main-font);
+  color: var(--main-text-color);
+  font-size: 33px;
 }
