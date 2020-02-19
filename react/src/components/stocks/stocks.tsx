@@ -12,7 +12,7 @@ export const Stocks:React.FC<StocksProps> = (props) => {
 
     return (
         <div>{
-            props.items.map(
+            Array.from(props.items).map(
                 item => <Stock
                     key={item.symbol}
                     item={item}
