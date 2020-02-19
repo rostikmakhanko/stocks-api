@@ -194,3 +194,30 @@ ul {
 .companies-list {
   padding: 20px;
 }
+
+.search-by-name-header {
+  display: flex;
+}
+
+.search-by-name-input {
+  flex-grow: 1;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.search-by-name-button {
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.search-by-name-image-and-text {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-by-name-image {
+
+}
