@@ -15,6 +15,9 @@ interface AppProps {
 interface State {
   stocks: StockItem[],
   name: string,
+  gain: string,
+  from: number,
+  to: number,
   displaySearchForm: boolean,
 }
 
@@ -22,6 +25,9 @@ class App extends React.Component<AppProps, State> {
   state = {
     stocks: [],
     name: "",
+    gain: "",
+    from: 0,
+    to: 0,
     displaySearchForm: false,
   };
 
@@ -40,6 +46,24 @@ class App extends React.Component<AppProps, State> {
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
     this.setState({
       name: e.currentTarget.value,
+    });
+  };
+
+  handleGainChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      gain: e.currentTarget.value,
+    });
+  };
+
+  handleFromChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      from: +e.currentTarget.value,
+    });
+  };
+
+  handleToChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      to: +e.currentTarget.value,
     });
   };
 
@@ -118,17 +142,18 @@ class App extends React.Component<AppProps, State> {
                                                                              onChange={this.handleNameChange}/>
                   </div>
                   <div className="by-gain">
-                    <span className="input-description">By Gain</span><input type="text" className="search-input"/>
+                    <span className="input-description">By Gain</span><input type="text" className="search-input"
+                                                                             onChange={this.handleGainChange}/>
                   </div>
                 </div>
                 <div className="input-column">
                   <div className="by-range-from">
                     <span className="input-description">By Range: From</span><input type="number" min="0"
-                                                                                    className="search-input"/>
+                                                                                    className="search-input" onChange={this.handleFromChange}/>
                   </div>
                   <div className="by-range-to">
                     <span className="input-description">By Range: To</span><input type="number" min="0"
-                                                                                  className="search-input"/>
+                                                                                  className="search-input" onChange={this.handleToChange}/>
                   </div>
                 </div>
               </div>
