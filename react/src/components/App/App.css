@@ -201,9 +201,16 @@ ul {
 }
 
 .search-by-name-input {
+  height: 55px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--borders-color);
+  padding: 1px;
+  font-family: var(--main-font);
+  font-size: 20px;
+  outline-width: 0;
   flex-grow: 1;
-  border-radius: 5px;
-  height: 30px;
   margin-left: 10px;
   margin-right: 10px;
 }
