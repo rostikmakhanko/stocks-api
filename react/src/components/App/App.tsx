@@ -16,15 +16,14 @@ interface AppProps {
 interface State {
   stocks: StockItem[],
   name: string,
+  displaySearchForm: boolean,
 }
 
 class App extends React.Component<AppProps, State> {
-  // const [stocks] = useState(props.initialState)
-
   state = {
     stocks: [],
     name: "",
-    // stocks: this.props.initialState
+    displaySearchForm: false,
   };
 
   async componentDidMount() {
@@ -35,6 +34,7 @@ class App extends React.Component<AppProps, State> {
     this.setState({
       stocks: data,
       name: "",
+      displaySearchForm: false,
     })
   };
 
@@ -44,6 +44,12 @@ class App extends React.Component<AppProps, State> {
     });
   };
 
+  handleFilterClick = (e: any) => {
+    this.setState({
+      displaySearchForm: !this.state.displaySearchForm,
+    })
+  }
+
   handleSubmitClick = async (e: any) => {
     e.preventDefault();
     const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${this.state.name}`);
@@ -52,8 +58,8 @@ class App extends React.Component<AppProps, State> {
     this.setState({
       stocks: data,
     });
+
     console.log('----', this.state.name);
-    //this.render();
   };
 
   render() {
@@ -73,7 +79,7 @@ class App extends React.Component<AppProps, State> {
                 </button>
               </li>
               <li>
-                <button aria-label="Filter" className="navigation-button">
+                <button aria-label="Filter" onClick={this.handleFilterClick} className="navigation-button">
                   <FilterSvg />
                 </button>
               </li>
@@ -84,29 +90,33 @@ class App extends React.Component<AppProps, State> {
               </li>
             </ul>
           </div>
-
-          <form action="./apply.html" className="search-form">
-            <div className="inputs">
-              <div className="input-column">
-                <div className="by-name">
-                  <span className="input-description">By Name</span><input type="text" className="search-input" onChange={this.handleNameChange}/>
+          {
+            (this.state.displaySearchForm ?
+            <form action="./apply.html" className="search-form">
+              <div className="inputs">
+                <div className="input-column">
+                  <div className="by-name">
+                    <span className="input-description">By Name</span><input type="text" className="search-input"
+                                                                             onChange={this.handleNameChange}/>
+                  </div>
+                  <div className="by-gain">
+                    <span className="input-description">By Gain</span><input type="text" className="search-input"/>
+                  </div>
                 </div>
-                <div className="by-gain">
-                  <span className="input-description">By Gain</span><input type="text" className="search-input"/>
+                <div className="input-column">
+                  <div className="by-range-from">
+                    <span className="input-description">By Range: From</span><input type="number" min="0"
+                                                                                    className="search-input"/>
+                  </div>
+                  <div className="by-range-to">
+                    <span className="input-description">By Range: To</span><input type="number" min="0"
+                                                                                  className="search-input"/>
+                  </div>
                 </div>
               </div>
-              <div className="input-column">
-                <div className="by-range-from">
-                  <span className="input-description">By Range: From</span><input type="number" min="0" className="search-input"/>
-                </div>
-                <div className="by-range-to">
-                  <span className="input-description">By Range: To</span><input type="number" min="0" className="search-input"/>
-                </div>
-              </div>
-            </div>
-            <button onClick={this.handleSubmitClick} className="apply">Apply</button>
-          </form>
-
+              <button onClick={this.handleSubmitClick} className="apply">Apply</button>
+            </form> : <div></div>)
+          }
           <Stocks items={this.state.stocks} />
         </div>
     );
