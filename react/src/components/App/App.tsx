@@ -87,7 +87,7 @@ class App extends React.Component<AppProps, State> {
   };
 
   getListOfCompaniesSymbols() {
-    let listOfCompaniesSymbols: Array<string> = this.state.stocks.map(stock => Object(stock).symbol);
+    let listOfCompaniesSymbols: Array<string> = Array.from(this.state.stocks).map(stock => Object(stock).symbol);
     return listOfCompaniesSymbols;
   }
 
