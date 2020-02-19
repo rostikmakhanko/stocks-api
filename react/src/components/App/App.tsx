@@ -74,7 +74,7 @@ class App extends React.Component<AppProps, State> {
   handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     this.setState({
-      displaySearchForm: !this.state.displaySearchForm,
+      displaySearchForm: !this.state.displaySearchForm
     });
   };
 
@@ -115,9 +115,10 @@ class App extends React.Component<AppProps, State> {
   };
 
   render() {
+    var classNames = require('classnames');
     return (
-        (this.state.displaySearchForm ?
-            <div>
+        (<div>
+            <div className={classNames({'hidden': !this.state.displaySearchForm})}>
               <div className="search-by-name-header">
                 <input className="search-by-name-input"/>
                 <button className="search-by-name-cancel-button" onClick={this.handleSearchClick}>Cancel</button>
@@ -127,8 +128,10 @@ class App extends React.Component<AppProps, State> {
                 <p className="search-by-name-text">Search</p>
               </div>
             </div>
-          :
-            <div className="App">
+
+          <div className={classNames({'hidden': this.state.displaySearchForm})}>
+
+            <div>
               <div className="logo-and-options">
                 <p className="logo">STOKR</p>
                 <ul className="options">
@@ -154,37 +157,37 @@ class App extends React.Component<AppProps, State> {
                   </li>
                 </ul>
               </div>
+            </div>
 
-              {
-                (this.state.displayFilterForm ?
-                <form action="./apply.html" className="search-form">
-                  <div className="inputs">
-                    <div className="input-column">
-                      <div className="by-name">
-                        <span className="input-description">By Name</span><input type="text" className="search-input"
-                                                                                 onChange={this.handleNameChange}/>
-                      </div>
-                      <div className="by-gain">
-                        <span className="input-description">By Gain</span><input type="text" className="search-input"
-                                                                                 onChange={this.handleGainChange}/>
-                      </div>
-                    </div>
-                    <div className="input-column">
-                      <div className="by-range-from">
-                        <span className="input-description">By Range: From</span><input type="number" min="0"
-                                                                                        className="search-input" onChange={this.handleFromChange}/>
-                      </div>
-                      <div className="by-range-to">
-                        <span className="input-description">By Range: To</span><input type="number" min="0"
-                                                                                      className="search-input" onChange={this.handleToChange}/>
-                      </div>
-                    </div>
+            <form action="./apply.html" className={classNames('search-form', {'hidden': !this.state.displayFilterForm})}>
+              <div className="inputs">
+                <div className="input-column">
+                  <div className="by-name">
+                    <span className="input-description">By Name</span><input type="text" className="search-input"
+                                                                             onChange={this.handleNameChange}/>
                   </div>
-                  <button onClick={this.handleSubmitClick} className="apply">Apply</button>
-                </form> : <div></div>)
-              }
+                  <div className="by-gain">
+                    <span className="input-description">By Gain</span><input type="text" className="search-input"
+                                                                             onChange={this.handleGainChange}/>
+                  </div>
+                </div>
+                <div className="input-column">
+                  <div className="by-range-from">
+                    <span className="input-description">By Range: From</span><input type="number" min="0"
+                                                                                    className="search-input" onChange={this.handleFromChange}/>
+                  </div>
+                  <div className="by-range-to">
+                    <span className="input-description">By Range: To</span><input type="number" min="0"
+                                                                                  className="search-input" onChange={this.handleToChange}/>
+                  </div>
+                </div>
+              </div>
+              <button onClick={this.handleSubmitClick} className="apply">Apply</button>
+            </form>
+
 
               <Stocks items={this.state.stocks} />
+                    </div>
             </div>)
     );
   }

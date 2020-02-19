@@ -218,7 +218,7 @@ ul {
 .search-by-name-cancel-button {
   font-size: 20px;
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 20px;
   font-family: var(--main-font);
   color: var(--main-green-color);
 }
@@ -239,4 +239,8 @@ ul {
   font-family: var(--main-font);
   color: var(--main-text-color);
   font-size: 33px;
+}
+
+.hidden {
+  display: none !important;
 }
