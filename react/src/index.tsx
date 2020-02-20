@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
 import * as serviceWorker from './serviceWorker';
-import {mocks} from './mocks';
+import { mocks } from './mocks';
 
 ReactDOM.render(<App initialState={mocks} />, document.getElementById('root'));
 

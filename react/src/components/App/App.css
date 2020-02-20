@@ -6,10 +6,10 @@ html {
   --icons-color: #ababab;
   --borders-color: #e5e5e5;
 
-  --bold-font: "HelveticaNeueW01-75Bold", sans-serif;
-  --main-font: "HelveticaNeueW01-55Roma", sans-serif;
-  --logo-font: "HelveticaNeueW02-95Blac", sans-serif;
-  --avenir-font: "HelveticaNeueW01-55Roma", sans-serif;
+  --bold-font: 'HelveticaNeueW01-75Bold', sans-serif;
+  --main-font: 'HelveticaNeueW01-55Roma', sans-serif;
+  --logo-font: 'HelveticaNeueW02-95Blac', sans-serif;
+  --avenir-font: 'HelveticaNeueW01-55Roma', sans-serif;
 }
 
 .logo-and-options {
@@ -26,7 +26,8 @@ html {
   flex-grow: 1;
 }
 
-.main-text, .input-description {
+.main-text,
+.input-description {
   color: var(--main-text-color);
   font-family: var(--main-font);
   font-size: 26px;
@@ -82,7 +83,8 @@ html {
   box-shadow: 0 0 0 1px var(--main-red-color);
 }
 
-.navigation-button, .search-by-name-cancel-button {
+.navigation-button,
+.search-by-name-cancel-button {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -108,7 +110,6 @@ html {
 }
 
 .options li {
-
   margin-right: 10px;
 }
 
@@ -133,7 +134,10 @@ input {
   flex-grow: 1;
 }
 
-.by-name, .by-gain, .by-range-from, .by-range-to {
+.by-name,
+.by-gain,
+.by-range-from,
+.by-range-to {
   display: flex;
   align-items: center;
   padding: 5px;
@@ -232,7 +236,6 @@ ul {
 }
 
 .search-by-name-image {
-
 }
 
 .search-by-name-text {

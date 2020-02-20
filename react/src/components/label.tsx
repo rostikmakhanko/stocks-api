@@ -1,13 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 interface LabelProps {
-    text: string | number
+  text: string | number;
 }
 
-export const Label: React.FC<LabelProps> = React.memo((props) => {
-    return (
-        <h1>{props.text}</h1>
-    )
-})
-
-
+export const Label: React.FC<LabelProps> = React.memo(props => {
+  return <h1>{props.text}</h1>;
+});
