@@ -8,6 +8,7 @@ import { ReactComponent as RefreshSvg } from "../../assets/refresh.svg";
 import { ReactComponent as SearchSvg } from "../../assets/search.svg";
 import { ReactComponent as SettingsSvg } from "../../assets/settings.svg";
 import { ReactComponent as BigSearchSvg } from "../../assets/big_search.svg";
+import {getCompanies} from "../../services/getCompanies";
 
 interface AppProps {
   initialState: Array<StockItem>,
@@ -35,8 +36,7 @@ class App extends React.Component<AppProps, State> {
   };
 
   async componentDidMount() {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/companies?companyName=WIX,twitter")
-    const data = await res.json();
+    const data = await getCompanies("WIX,twitter");
     console.log(data);
 
     this.setState({
@@ -48,27 +48,11 @@ class App extends React.Component<AppProps, State> {
   }
 
   handleNameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({
-      name: e.currentTarget.value,
-    });
-  };
-
-  handleGainChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({
-      gain: e.currentTarget.value,
-    });
-  };
-
-  handleFromChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({
-      from: +e.currentTarget.value,
-    });
-  };
-
-  handleToChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({
-      to: +e.currentTarget.value,
-    });
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+    // console.log(e.currentTarget.name)
+    // console.log(e.currentTarget.value)
+    this.setState({[name]: value } as any);
   };
 
   handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,8 +71,7 @@ class App extends React.Component<AppProps, State> {
 
   handleSubmitClick = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${this.state.name}`);
-    const data = await res.json();
+    const data = await getCompanies(this.state.name);
 
     this.setState({
       stocks: data,
@@ -106,8 +89,7 @@ class App extends React.Component<AppProps, State> {
     e.preventDefault();
 
     let listOfCompaniesSymbols: Array<string> = await this.getListOfCompaniesSymbols();
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/companies?companyName=${listOfCompaniesSymbols.join(',')}`);
-    const data = await res.json();
+    const data = await getCompanies(listOfCompaniesSymbols.join(','));
 
     this.setState({
       stocks: data,
@@ -163,22 +145,22 @@ class App extends React.Component<AppProps, State> {
               <div className="inputs">
                 <div className="input-column">
                   <div className="by-name">
-                    <span className="input-description">By Name</span><input type="text" className="search-input"
+                    <span className="input-description">By Name</span><input type="text" name="name" className="search-input"
                                                                              onChange={this.handleNameChange}/>
                   </div>
                   <div className="by-gain">
-                    <span className="input-description">By Gain</span><input type="text" className="search-input"
-                                                                             onChange={this.handleGainChange}/>
+                    <span className="input-description">By Gain</span><input type="text" name="gain" className="search-input"
+                                                                             onChange={this.handleNameChange}/>
                   </div>
                 </div>
                 <div className="input-column">
                   <div className="by-range-from">
-                    <span className="input-description">By Range: From</span><input type="number" min="0"
-                                                                                    className="search-input" onChange={this.handleFromChange}/>
+                    <span className="input-description">By Range: From</span><input type="number" name="from" min="0"
+                                                                                    className="search-input" onChange={this.handleNameChange}/>
                   </div>
                   <div className="by-range-to">
-                    <span className="input-description">By Range: To</span><input type="number" min="0"
-                                                                                  className="search-input" onChange={this.handleToChange}/>
+                    <span className="input-description">By Range: To</span><input type="number" name="to" min="0"
+                                                                                  className="search-input" onChange={this.handleNameChange}/>
                   </div>
                 </div>
               </div>
